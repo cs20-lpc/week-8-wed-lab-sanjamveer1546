@@ -5,7 +5,7 @@ using namespace std;
 
 /*******************************************************************************
  * Function prototypes
-*******************************************************************************/
+ *******************************************************************************/
 
 double gRec(unsigned);
 double gStack(unsigned);
@@ -15,19 +15,20 @@ double gStack(unsigned);
  * Starting point of the program. Calls two functions in two different ways:
  * recursive and iterative. The outputs for both function calls should match
  * exactly.
- * 
+ *
  * Input:
  * N/A
- * 
+ *
  * Output:
  * An integer to signal to the OS the exit code.
-*******************************************************************************/
+ *******************************************************************************/
 
-int main() {
+int main()
+{
     unsigned startValue = 0;
 
     cout << "Enter the starting value for i: ";
-    cin  >> startValue;
+    cin >> startValue;
 
     cout << "\nRecursive:\n";
     cout << gRec(startValue) << endl;
@@ -42,20 +43,22 @@ int main() {
  * Description:
  * Recursive function that calculates a result. Displays a message when a base
  * case is reached.
- * 
+ *
  * Input:
  * i - an unsigned value that determines whether or not this is a base case
- * 
+ *
  * Output:
  * The result of 1.1n + 3.2, where n is the depth of recursion
-*******************************************************************************/
+ *******************************************************************************/
 
-double gRec(unsigned i) {
-    if (i == 0) {
+double gRec(unsigned i)
+{
+    if (i == 0)
+    {
         cout << "Base case!\n";
         return 3.2;
     }
-    
+
     return gRec(i - 1) + 1.1;
 }
 
@@ -63,14 +66,44 @@ double gRec(unsigned i) {
  * Description:
  * Iterative function that simulates recursion using a stack. Calculates a
  * result. Displays a message when a base case is reached.
- * 
+ *
  * Input:
  * i - an unsigned value that determines whether or not this is a base case
- * 
+ *
  * Output:
  * The result of 1.1n + 3.2, where n is the depth of recursion
-*******************************************************************************/
+ *******************************************************************************/
 
-double gStack(unsigned i) {
-    // TODO
+double gStack(unsigned i)
+{
+    ArrayStack<unsigned> callStack(i + 1);
+
+  
+    unsigned current = i;
+    while (true)
+    {
+        callStack.push(current);
+
+        if (current == 0)
+        {
+            cout << "Base case!\n";
+            break;
+        }
+
+        current--;
+    }
+
+
+    double result = 3.2;
+
+
+    callStack.pop(); // remove the 0 case
+
+    while (!callStack.isEmpty())
+    {
+        result += 1.1;
+        callStack.pop();
+    }
+
+    return result;
 }
